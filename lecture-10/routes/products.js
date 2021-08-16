@@ -25,8 +25,12 @@ const products = [
   }
 ]
 
-router.get('/', (req, res) => {
-  res.render('products', { products: products });
-});
+router
+      .get('/', (req, res) => {
+        res.render('products', { products: products });
+      })
+      .get('/create', (req, res) => {
+        res.render('create')
+      })
 
 module.exports = router;

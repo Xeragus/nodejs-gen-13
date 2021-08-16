@@ -1,14 +1,18 @@
-<table>
-  <tr>
-    <th>SKU</th>
-    <th>Name</th>
-    <th>Price</th>
-  </tr>
-  <% products.forEach(product => { %>
+<table class="table">
+  <thead>
     <tr>
-      <td><%= product.sku %></td>
-      <td><%= product.name %></td>
-      <td>$<%= product.price %></td>
+      <th scope="col">SKU</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
     </tr>
-  <% }) %>
+  </thead>
+  <tbody>
+    <% products.forEach(product => { %>
+      <tr>
+        <td><%= product.sku %></td>
+        <td><%= product.name %></td>
+        <td>$<%= product.price %></td>
+      </tr>
+    <% }) %>
+  </tbody>
 </table>
