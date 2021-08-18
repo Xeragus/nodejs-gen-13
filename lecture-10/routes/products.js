@@ -1,36 +1,40 @@
 const express = require('express');
 const router = express.Router();
-
-// simulirame povik do baza
-const products = [
-  {
-    sku: 12312321,
-    name: 'Arsenal T-Shirt',
-    price: '55.69'
-  },
-  {
-    sku: 43534543,
-    name: 'Barcelona T-Shirt',
-    price: '35.44'
-  },
-  {
-    sku: 32423423,
-    name: 'VMRO dress',
-    price: '21.24'
-  },
-  {
-    sku: 543543345,
-    name: 'Red Rose on Orange Background',
-    price: '31.43'
-  }
-]
+const Product = require('../models/product');
 
 router
-      .get('/', (req, res) => {
+      .get('/', async (req, res) => {
+        const products = await Product.find();
+
         res.render('products', { products: products });
+      })
+      .get('/:id', async (req, res) => {
+        const product = await Product.findById(req.params.id);
+
+        res.render('update', { product: product })
       })
       .get('/create', (req, res) => {
         res.render('create')
+      })
+      .post('/create', async (req, res) => {
+        try {
+          await Product.create(req.body);
+
+          res.redirect('/products');
+        } catch (error) {
+          res.send(error)
+          throw error
+        }
+      })
+      .post('/:id', async (req, res) => {
+        try {
+          await Product.findByIdAndUpdate(req.params.id, req.body);
+
+          res.redirect('/products');
+        } catch (error) {
+          res.send(error)
+          throw error
+        }
       })
 
 module.exports = router;

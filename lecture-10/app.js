@@ -1,12 +1,14 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-
+const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/nodejs-gen-13', {useNewUrlParser: true, useUnifiedTopology: true});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
