@@ -33,5 +33,10 @@ module.exports = {
       res.send(error)
       throw error
     }
+  },
+  delete: async (req, res) => {
+    await Product.findByIdAndDelete(req.params.id);
+
+    res.redirect('/products');
   }
 }
